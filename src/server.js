@@ -1,12 +1,13 @@
 import http from 'http'
 import { URL } from 'url'
-import { parseJSON } from './utils.js'
+import { parseJSON, parseFormData } from './utils.js'
 import { router } from './router.js'
 import helpers from './helpers.js'
 
 const contentParsers = {
   'text/html': (text) => text,
   'application/json': (json) => parseJSON(json, {}),
+  'multipart/form-data': (data) => parseFormData(data),
   'application/x-www-form-urlencoded': (data) =>
     Object.fromEntries(new URLSearchParams(data))
 }
